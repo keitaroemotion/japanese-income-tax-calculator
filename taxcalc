@@ -40,20 +40,23 @@ if(expense_rate > 60):
 
 income_tax = 0
 
+def calc(amount, rate, deduction_amount):
+    return int(amount * rate / 100 - deduction_amount)
+
 def calculate_income_tax(amount):
     if(amount < 1_950_000):
-        return int(amount * 5 / 100 - 0)
+        return calc(amount, 5, 0)
     if(amount < 3_300_000):
-        return int(amount * 10 / 100 - 97_500)
+        return calc(amount, 10, 97_500)
     if(amount < 6_950_000):
-        return int(amount * 20 / 100 - 427_500)
+        return calc(amount, 20, 427_500)
     if(amount < 9_000_000):
-        return int(amount * 23 / 100 - 636_000)
+        return calc(amount, 23, 636_000)
     if(amount < 18_000_000):
-        return int(amount * 33 / 100 - 1_536_000)
+        return calc(amount, 33, 1_536_000)
     if(amount < 40_000_000):
-        return int(amount * 40 / 100 - 2_790_000)
-    return int(amount * 45 / 100 - 4_796_000)
+        return calc(amount, 40, 2_790_000)
+    return calc(amount, 45, 4_796_000)
 
 print("所得税: " + translate(calculate_income_tax(amount - expenses)))
 print("")
