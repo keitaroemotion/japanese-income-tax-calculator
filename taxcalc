@@ -1,0 +1,49 @@
+#!/usr/bin/env python3.9
+
+import re
+import sys
+
+amount       = 3_000_000
+amount       = 10_000_000
+expenses     = 300_000
+expense_rate = expenses / amount * 100 
+
+def translate(amount):
+    amount_str = ""
+    counter=0
+    for x in str(int(amount))[::-1]:
+        amount_str += x
+        counter = counter + 1
+        if(counter == 4):
+            amount_str += ","
+            counter = 0
+    amount_str = re.sub('\,$', '' ,amount_str)
+    return amount_str[::-1]
+
+print(f"\n売上:   {translate(amount)}")
+print(f"経費:   {translate(expenses)}")
+print(f"経費率: {translate(expense_rate)}%")
+
+if(expense_rate > 60):
+    print("================================")
+    print("\nちょ、おま、脱税？\n")
+    print("================================")
+
+income_tax = 0
+
+def calculate_income_tax(amount):
+    if(amount < 1_950_000):
+        return int(amount * 5 / 100 - 0)
+    if(amount < 3_300_000):
+        return int(amount * 10 / 100 - 97_500)
+    if(amount < 6_950_000):
+        return int(amount * 20 / 100 - 427_500)
+    if(amount < 9_000_000):
+        return int(amount * 23 / 100 - 636_000)
+    if(amount < 18_000_000):
+        return int(amount * 33 / 100 - 1_536_000)
+    if(amount < 40_000_000):
+        return int(amount * 40 / 100 - 2_790_000)
+    return int(amount * 45 / 100 - 4_796_000)
+
+print("所得税: " + translate(calculate_income_tax(amount - expenses)))
