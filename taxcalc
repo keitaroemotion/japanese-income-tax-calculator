@@ -3,9 +3,20 @@
 import re
 import sys
 
-amount       = 3_000_000
-amount       = 10_000_000
-expenses     = 300_000
+
+
+help = """
+
+taxcalc [売上額] [経費]
+
+"""
+
+if(len(sys.argv) < 3):
+    print(help)
+    sys.exit()
+
+amount   = int(sys.argv[1])
+expenses = int(sys.argv[2])
 expense_rate = expenses / amount * 100 
 
 def translate(amount):
@@ -47,3 +58,4 @@ def calculate_income_tax(amount):
     return int(amount * 45 / 100 - 4_796_000)
 
 print("所得税: " + translate(calculate_income_tax(amount - expenses)))
+print("")
